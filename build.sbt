@@ -7,6 +7,7 @@ lazy val `scala-way-month-01` = project
       typesafeConfig,
       scalaLogging,
       slf4jLog4j,
+      scalaz,
       log4j
     ) ++ testDep(
       scalatest,

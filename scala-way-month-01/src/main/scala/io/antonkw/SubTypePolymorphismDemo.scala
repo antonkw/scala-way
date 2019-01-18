@@ -27,4 +27,14 @@ object SubTypePolymorphismDemo extends App with LazyLogging {
 //  val po = PlusableWithName(name = "Something")
 //
 //  plus(po, po)
+
+  sealed trait Number
+
+  case class IntWrapper(n: Int) extends Number with Plus[IntWrapper] {
+    override def plus(a2: IntWrapper): IntWrapper = IntWrapper(n + a2.n)
+  }
+
+  case class DoubleWrapper(n: Double) extends Number with Plus[DoubleWrapper] {
+    override def plus(a2: DoubleWrapper): DoubleWrapper = DoubleWrapper(n + a2.n)
+  }
 }
