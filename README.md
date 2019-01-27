@@ -1,7 +1,9 @@
 # scala-way
 
-Equal.
 From: http://fasihkhatib.com/2017/06/28/scalaz-equals/
+
+**Equal**
+
 
 Scalaz `===` lets you check for equality in a type-safe way. More often than not, this is what you need. Trying to compare values of dissimilar types is usually not needed. Using === ensures that such comparisons lead to errors at compile-time instead of waiting for them to surface at run-time. 
 
@@ -26,3 +28,16 @@ For custom types you need to define implicit:
 case class StringDecorator(s: String)
 implicit val StringDecoratorEqual: Equal[StringDecorator] = Equal.equalA[StringDecorator]
 ```
+
+**Ordering**
+
+Allows you to do stuff like Option compare (None will be smaller than any Some):
+```
+val (one, two) = (1.some, 2.some)
+if (one < two) ...
+```
+
+In practice to use with "usual" types and preserve Ordering type-safe semantic you need to use non-default comparison operators.
+
+To evaluate `1 <= 2.0` default operator will be used. And `1 lte 2.0` will produce compilation error.
+`?|?` returns actual ordering (EQ/LT/GT) `assert(1.0 ?|? 2.0 == Ordering.LT)`
