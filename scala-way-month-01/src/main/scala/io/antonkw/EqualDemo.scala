@@ -11,5 +11,6 @@ object EqualDemo extends App with LazyLogging {
   //1 assert_=== "1" need implicits
   1 assert_=== 1 //throw runtime exception if not
 
+  Seq(1, "s") == List(1, "s")
 
 }
