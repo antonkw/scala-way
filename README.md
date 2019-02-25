@@ -1,7 +1,7 @@
 # scala-way
 
 From: http://fasihkhatib.com/2017/06/28/scalaz-equals/
-
+http://www.smartjava.org/content/scalaz-features-everyday-usage-part-1-typeclasses-and-scala-extensions/
 **Equal**
 
 
@@ -41,3 +41,33 @@ In practice to use with "usual" types and preserve Ordering type-safe semantic y
 
 To evaluate `1 <= 2.0` default operator will be used. And `1 lte 2.0` will produce compilation error.
 `?|?` returns actual ordering (EQ/LT/GT) `assert(1.0 ?|? 2.0 == Ordering.LT)`
+
+**Enum**
+
+It is not another-java-enum-replacement.
+Main idea is to describe enumeration as "ordered and cyclic sequence".
+It extension of Ordering class.
+
+There are a lot of things related to range operations:
+```$xslt
+FEBRUARY |--> (2, JULY) assert_=== FEBRUARY::APRIL::JUNE::Nil
+FEBRUARY |--> (-2, JULY) assert_=== FEBRUARY::DECEMBER::OCTOBER::AUGUST::Nil
+JUNE |-> AUGUST assert_=== JUNE::JULY::AUGUST::Nil
+AUGUST |-> JUNE assert_=== AUGUST::JULY::JUNE::Nil
+```
+
+One important feature I want to mention is defining of min and max value in `Enum[T]`:
+```$xslt
+override def min: Option[MonthsOfYear.Month] = Some(JANUARY)
+override def max: Option[MonthsOfYear.Month] = Some(DECEMBER)
+```
+
+Basic `succ` is returning min value after max, so you can use it for something like infinite re-iteration over enumeration:
+```$xslt
+DECEMBER.succ assert_=== JANUARY
+```
+But there is one more function, `succx`. It returns `None` for max value:
+```$xslt
+DECEMBER.succx assert_=== none[Month]
+```
+Such features are extremely useful for ETL-like stuff orchestration.
