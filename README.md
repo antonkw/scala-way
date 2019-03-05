@@ -71,3 +71,6 @@ But there is one more function, `succx`. It returns `None` for max value:
 DECEMBER.succx assert_=== none[Month]
 ```
 Such features are extremely useful for ETL-like stuff orchestration.
+
+**Functor**
+Best explanation of functors: https://tpolecat.github.io/2014/03/21/functor.html

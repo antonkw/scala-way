@@ -54,7 +54,7 @@ class EnumDemo extends FreeSpec {
     assert(DECEMBER.pred ≟ NOVEMBER)
   }
 
-  "ff" in {
+  "|-> " in {
     JUNE |-> AUGUST assert_=== JUNE::JULY::AUGUST::Nil
   }
 
