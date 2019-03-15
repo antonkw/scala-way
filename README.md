@@ -72,5 +72,13 @@ DECEMBER.succx assert_=== none[Month]
 ```
 Such features are extremely useful for ETL-like stuff orchestration.
 
+**Show**
+`toString` from Haskell world. It is required by some other type classes (Equal, for example).
+`Show[A]` enables `show` (returns `Cord` which is representation of string), `shows` (returns string, so you need to override it), `print/println` (very functional stuff, just what we need)
+
+
 **Functor**
+In common case functor is some container for values. And with type class you can specify how to map over this container.
+After that a lot of various map-based operations become available.
 Best explanation of functors: https://tpolecat.github.io/2014/03/21/functor.html
+

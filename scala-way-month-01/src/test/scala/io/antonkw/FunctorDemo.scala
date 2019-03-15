@@ -1,9 +1,8 @@
 package io.antonkw
 
 import org.scalatest.FreeSpec
-import scalaz._
-import Scalaz._
-import scalaz.\/
+import scalaz.Scalaz._
+import scalaz.{\/, _}
 
 /**
   * Based on:
@@ -84,23 +83,23 @@ class FunctorDemo extends FreeSpec {
   }
 
   "compose" in {
+    val f = Functor[Box2] compose Functor[Option]
 
-    implicit val f = Functor[Box2] compose Functor[Option]
     assert(
       f.map(Box2[Option[Int]](Some(1), None))(_ + 1) == Box2(Some(2), None)
     )
   }
 
   "product" in {
+    val f = Functor[Box2] product Functor[Option]
 
-    implicit val f = Functor[Box2] product Functor[Option]
     assert(
       f.map((Box2(1, 5), Some(3)))(_ + 1) == ((Box2(2, 6), Some(4)))
     )
   }
 
   "bifunctor" in {
-    implicit val f = Functor[Box2] bicompose Bifunctor[\/]
+    val f = Functor[Box2] bicompose Bifunctor[\/]
     assert(
       f.bimap(Box2[\/[Int, String]](-\/(10), \/-("w")))(_ + 1, _.toUpperCase) == Box2(-\/(11),\/-("W"))
     )
